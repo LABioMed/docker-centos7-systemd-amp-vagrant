@@ -1,0 +1,15 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "hashicorp/boot2docker"
+  config.vm.provider "virtualbox" do |v|
+    v.customize ['modifyvm', :id, '--memory', 2048]
+    v.customize ['modifyvm', :id, '--cpus', 2]
+    v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+  end
+
+  config.vm.network :forwarded_port, guest: 5432, host: 5432
+  config.vm.network :forwarded_port, guest: 4443, host: 4443
+  config.vm.network :forwarded_port, guest: 4080, host: 4080
+  config.vm.network :forwarded_port, guest: 4022, host: 4022
+
+end
